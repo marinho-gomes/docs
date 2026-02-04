@@ -1,0 +1,312 @@
+---
+title: Mobile App
+description: "Streamlined mobile interface for AI image generation"
+---
+
+# Mobile App
+
+The mobile interface provides a streamlined experience optimized for touch devices.
+
+<Info>
+  The mobile app is currently a prototype interface. Full mobile functionality is planned for future releases.
+</Info>
+
+## Screen Overview
+
+The mobile app consists of three main screens:
+
+```
+Home → Prompt → Result
+```
+
+Navigation flows linearly with back buttons to return.
+
+## Home Screen
+
+The landing screen showcases trending styles and templates.
+
+### Hero Banner
+
+- App title: "Image Generator"
+- Tagline: "Turn your ideas into stunning images"
+- Glassmorphism card effect
+
+### Trending Styles
+
+Horizontal scrollable carousel:
+
+| Style | Description |
+|-------|-------------|
+| **Photo** | Photorealistic images |
+| **Illustration** | Digital artwork |
+| **Comic** | Comic book style |
+| **Anime** | Japanese animation |
+
+Tap a style to pre-select it for generation.
+
+### Image Templates
+
+Grid of template images showing example outputs:
+
+- Tap to use as inspiration
+- Pre-fills prompt screen with related settings
+
+### Generate Button
+
+Large "Generate Now" button at bottom:
+
+- Navigates to Prompt screen
+- Purple gradient styling
+- Full-width design
+
+## Prompt Screen
+
+Configure and create your generation.
+
+### Prompt Input
+
+Large textarea for entering your description:
+
+```
+Example placeholder:
+"A serene Japanese garden with cherry blossoms..."
+```
+
+- Pre-filled with example prompt
+- Tap to edit
+- Auto-resize as you type
+
+### Random Prompt
+
+**"Random Prompt"** button generates creative suggestions:
+
+- Tap to fill with random creative prompt
+- Good for inspiration
+- Edit after generating
+
+### Style Selector
+
+Horizontal chip selector:
+
+```
+┌───────┬───────┬─────┐
+│ Photo │ Anime │ Art │
+└───────┴───────┴─────┘
+```
+
+- Tap to select style
+- One active at a time
+- Affects generation aesthetic
+
+### Shape Selector
+
+Choose output dimensions:
+
+```
+┌────────┬───────────┬──────────┐
+│ Square │ Landscape │ Portrait │
+└────────┴───────────┴──────────┘
+```
+
+| Shape | Ratio | Use Case |
+|-------|-------|----------|
+| Square | 1:1 | Social posts |
+| Landscape | 16:9 | Wallpapers |
+| Portrait | 9:16 | Stories |
+
+### Credits Display
+
+Shows available generation credits:
+
+```
+🔋 Credits: 50
+```
+
+### Generate Button
+
+**"Generate Images"** button starts creation:
+
+- Full-width purple gradient
+- Navigates to Result screen
+- Shows loading during generation
+
+## Result Screen
+
+View and interact with your generated image.
+
+### Main Image
+
+Full-size display of the generated image:
+
+- Takes majority of screen
+- High-resolution output
+- Tap to zoom (future feature)
+
+### Variant Thumbnails
+
+Horizontal carousel of variants:
+
+```
+┌─────┬─────┬─────┬─────┐
+│  1  │  2  │  3  │  4  │
+└─────┴─────┴─────┴─────┘
+```
+
+- Shows all generated variants
+- Tap to view full size
+- Active variant highlighted
+
+### Action Buttons
+
+<CardGroup cols={2}>
+  <Card title="Share" icon="share">
+    Share image via system share sheet
+  </Card>
+  <Card title="Download" icon="download">
+    Save to device photo library
+  </Card>
+</CardGroup>
+
+### Navigation
+
+- **Back button**: Return to Prompt screen
+- **Home button**: Return to Home screen
+
+## Bottom Navigation
+
+Persistent navigation bar at screen bottom:
+
+```
+┌──────────────────────────────┐
+│  🏠   🔍   🔔   👤           │
+│ Home Search Notif Profile    │
+└──────────────────────────────┘
+```
+
+| Icon | Screen | Description |
+|------|--------|-------------|
+| Home | Home | Main landing |
+| Search | Search | Find content |
+| Notifications | Alerts | Activity feed |
+| Profile | Profile | User settings |
+
+### Active State
+
+- Active item expands to show label
+- Pill-shaped highlight
+- Smooth transition animation
+
+## Touch Interactions
+
+### Tap Actions
+
+| Element | Action |
+|---------|--------|
+| Style chip | Select style |
+| Shape chip | Select shape |
+| Thumbnail | View variant |
+| Button | Trigger action |
+
+### Swipe Actions
+
+| Gesture | Action |
+|---------|--------|
+| Swipe left/right | Scroll carousels |
+| Swipe down | (Future) Dismiss modal |
+
+## Design Specifications
+
+### Container
+
+- Max width: 480px
+- Centered on larger screens
+- Full width on mobile
+
+### Spacing
+
+- Content padding: 20px
+- Element spacing: 16px
+- Card padding: 16px
+
+### Typography
+
+| Element | Size |
+|---------|------|
+| Headings | 24px |
+| Body | 14px |
+| Captions | 12px |
+
+### Colors
+
+Same dark theme as desktop:
+
+- Background: `#0A0A0C`
+- Cards: `rgba(255, 255, 255, 0.05)`
+- Accent: `#8b5cf6`
+- Text: `#FAFAFA`
+
+## Navigation Flow
+
+```
+┌──────────┐
+│   Home   │
+│          │
+│ [Generate]─────┐
+└──────────┘     │
+                 ▼
+           ┌──────────┐
+           │  Prompt  │
+           │          │
+           │[Generate]│─────┐
+           │  [Back]  │     │
+           └──────────┘     │
+                 ▲          ▼
+                 │    ┌──────────┐
+                 │    │  Result  │
+                 │    │          │
+                 └────│  [Back]  │
+                      └──────────┘
+```
+
+## State Management
+
+The app uses a simple state object:
+
+```javascript
+const appState = {
+  currentScreen: "home" | "prompt" | "result",
+  selectedStyle: "photo" | "anime" | "art",
+  selectedShape: "square" | "landscape" | "portrait"
+}
+```
+
+### Screen Transitions
+
+- Managed by `navigateTo(screenId)` function
+- Screens toggle via `.active` class
+- Smooth CSS transitions
+
+## Limitations (Prototype)
+
+<Warning>
+  Current prototype limitations:
+</Warning>
+
+- No actual AI generation (mock data)
+- No persistent storage
+- No user accounts
+- Limited model selection
+- No reference image support
+
+## Future Mobile Features
+
+<Info>
+  Planned for future releases:
+</Info>
+
+- Full generation functionality
+- Offline support (PWA)
+- Push notifications
+- Camera integration for references
+- Gesture-based editing
+- Social sharing integration

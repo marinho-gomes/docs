@@ -1,0 +1,478 @@
+---
+title: Components
+description: "UI component specifications and usage guidelines"
+---
+
+# Components
+
+Reference guide for all UI components used in AI Image Generator.
+
+## Buttons
+
+### Primary Button
+
+The main call-to-action button.
+
+```css
+.btn-primary {
+  background: linear-gradient(92deg, #8b5cf6 0%, #6366f1 100%);
+  color: #FFFFFF;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  box-shadow: 0px 0px 20px rgba(139, 92, 246, 0.5);
+}
+```
+
+| State | Style |
+|-------|-------|
+| Default | Purple gradient with glow |
+| Hover | Increased brightness |
+| Active | Slight scale down |
+| Disabled | 50% opacity, no glow |
+| Loading | Spinner + "Generating..." |
+
+### Secondary Button
+
+For secondary actions.
+
+```css
+.btn-secondary {
+  background: transparent;
+  color: #A1A1AA;
+  padding: 12px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  font-weight: 500;
+}
+```
+
+### Icon Button
+
+Circular buttons for toolbar actions.
+
+```css
+.btn-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+```
+
+## Input Fields
+
+### Text Input
+
+```css
+.input {
+  background: rgba(39, 39, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: #FAFAFA;
+  font-size: 14px;
+}
+
+.input:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+  outline: none;
+}
+```
+
+### Textarea
+
+For prompt input.
+
+```css
+.textarea {
+  background: rgba(39, 39, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 16px;
+  min-height: 120px;
+  resize: vertical;
+}
+```
+
+### Select Dropdown
+
+Custom dropdown with icon support.
+
+```css
+.select {
+  background: rgba(39, 39, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.select-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #18181b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  margin-top: 4px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+```
+
+## Cards
+
+### Glass Card
+
+Used for panels and containers.
+
+```css
+.card-glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 24px;
+}
+```
+
+### Image Card
+
+For gallery thumbnails.
+
+```css
+.image-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 1;
+}
+
+.image-card:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: scale(1.02);
+}
+```
+
+### Style Card
+
+For style preset selection.
+
+```css
+.style-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.style-card.active {
+  border-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.1);
+}
+```
+
+## Navigation
+
+### Sidebar Nav Item
+
+```css
+.nav-item {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #71717A;
+  transition: all 0.2s;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #A1A1AA;
+}
+
+.nav-item.active {
+  background: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
+}
+```
+
+### Tab Switcher
+
+```css
+.tabs {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.tab {
+  flex: 1;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #A1A1AA;
+}
+
+.tab.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FAFAFA;
+}
+```
+
+### Bottom Nav (Mobile)
+
+```css
+.bottom-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20, 20, 22, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 9999px;
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+```
+
+## Controls
+
+### Segmented Control
+
+For variant count selection.
+
+```css
+.segmented {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.segment {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #A1A1AA;
+}
+
+.segment.active {
+  background: #8b5cf6;
+  color: #FFFFFF;
+}
+```
+
+### Chip/Pill
+
+For aspect ratio and filter selection.
+
+```css
+.chip {
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 13px;
+  color: #A1A1AA;
+}
+
+.chip.active {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: #8b5cf6;
+  color: #FAFAFA;
+}
+```
+
+### Toggle Switch
+
+```css
+.toggle {
+  width: 44px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  position: relative;
+}
+
+.toggle.active {
+  background: #8b5cf6;
+}
+
+.toggle-handle {
+  width: 20px;
+  height: 20px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+}
+
+.toggle.active .toggle-handle {
+  transform: translateX(20px);
+}
+```
+
+## Feedback
+
+### Loading Spinner
+
+```css
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #8b5cf6;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+```
+
+### Loading Overlay
+
+```css
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(9, 9, 11, 0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+```
+
+### Badge
+
+```css
+.badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badge-new {
+  background: rgba(139, 92, 246, 0.2);
+  color: #a78bfa;
+}
+
+.badge-success {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+```
+
+### Tooltip
+
+```css
+.tooltip {
+  position: absolute;
+  background: #27272a;
+  color: #FAFAFA;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+}
+```
+
+## Layout
+
+### Spacing Scale
+
+| Token | Value |
+|-------|-------|
+| `--space-xs` | 4px |
+| `--space-sm` | 8px |
+| `--space-md` | 16px |
+| `--space-lg` | 24px |
+| `--space-xl` | 32px |
+| `--space-2xl` | 48px |
+
+### Border Radius Scale
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--radius-sm` | 6px | Badges, small elements |
+| `--radius-md` | 10px | Buttons, tabs |
+| `--radius-lg` | 12px | Cards, inputs |
+| `--radius-xl` | 16px | Large cards, panels |
+| `--radius-2xl` | 20px | Hero sections |
+| `--radius-full` | 9999px | Pills, avatars |
+
+## Shadows
+
+```css
+:root {
+  /* Elevation levels */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+  /* Glow effects */
+  --glow-accent: 0 0 20px rgba(139, 92, 246, 0.5);
+  --glow-success: 0 0 20px rgba(34, 197, 94, 0.4);
+}
+```
+
+## Animation
+
+### Transitions
+
+```css
+:root {
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+  --transition-slow: 0.3s ease;
+}
+```
+
+### Common Animations
+
+```css
+/* Fade in */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Scale in */
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Slide up */
+@keyframes slideUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+```

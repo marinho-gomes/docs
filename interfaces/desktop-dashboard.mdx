@@ -1,0 +1,243 @@
+---
+title: Desktop Dashboard
+description: "Complete guide to the desktop image generation interface"
+---
+
+# Desktop Dashboard
+
+The desktop dashboard is the primary interface for AI Image Generator, providing full access to all features.
+
+## Layout Overview
+
+The dashboard uses a **3-column grid layout**:
+
+```
+┌──────┬─────────────────┬─────────────────────────────┐
+│      │                 │                             │
+│ Nav  │  Control Panel  │       Canvas Area           │
+│ 80px │     360px       │        Flexible             │
+│      │                 │                             │
+└──────┴─────────────────┴─────────────────────────────┘
+```
+
+## Left Column: Navigation Sidebar
+
+The 80px navigation sidebar provides app-wide navigation:
+
+| Icon | Function |
+|------|----------|
+| **Image** | Image generation (default) |
+| **Video** | Video generation dashboard |
+| **Settings** | App settings |
+| **Profile** | User profile |
+
+### Active States
+
+- Active item has highlighted background
+- Hover states on all items
+- Icons from Feather Icons library
+
+## Center Column: Control Panel
+
+The 360px control panel contains all generation settings.
+
+### Model Selection
+
+<Steps>
+  <Step title="Click Dropdown">
+    Click the model selector to open the dropdown
+  </Step>
+  <Step title="View Options">
+    See all available models with descriptions
+  </Step>
+  <Step title="Select Model">
+    Click your preferred model to select
+  </Step>
+</Steps>
+
+**Available Models:**
+- Flux 1.0 Ultra (Recommended)
+- Midjourney V6
+- DALL-E 3 Max
+
+### Variant Count
+
+Segmented control for selecting 1-4 image variants:
+
+```
+┌───┬───┬───┬───┐
+│ 1 │ 2 │ 3 │ 4 │
+└───┴───┴───┴───┘
+```
+
+Click a number to set variant count.
+
+### Prompt Input
+
+The textarea for entering your prompt:
+
+- **Placeholder text** guides first-time users
+- **Attachment button** for adding reference images
+- **Character count** (if enabled)
+
+#### Adding Reference Images
+
+1. Click the **attachment icon** (paperclip)
+2. Select an image file
+3. Preview appears in the input area
+4. Click **X** to remove
+
+### Aspect Ratio
+
+Select output dimensions with the aspect ratio pills:
+
+| Pill | Ratio |
+|------|-------|
+| 16:9 | Landscape widescreen |
+| 1:1 | Square |
+| 4:3 | Standard |
+| 3:2 | Photo |
+| 9:16 | Portrait/mobile |
+| 2:3 | Tall portrait |
+
+### Style Presets
+
+2x2 grid of style options:
+
+```
+┌──────────┬──────────┐
+│ Realistic│  Anime   │
+├──────────┼──────────┤
+│ 3D Render│   Oil    │
+└──────────┴──────────┘
+```
+
+Click a style to apply it to your generation.
+
+### Generate Button
+
+The primary action button:
+
+- **Purple gradient** background
+- **Full width** of control panel
+- Shows **loading state** during generation
+- Disabled while processing
+
+## Right Column: Canvas Area
+
+The flexible canvas area displays your results.
+
+### Canvas Toolbar
+
+Top toolbar with view controls:
+
+| Button | Action |
+|--------|--------|
+| **Zoom In** | Increase image size |
+| **Zoom Out** | Decrease image size |
+| **Maximize** | Fullscreen view |
+| **Download** | Save image to device |
+| **Share** | Generate share link |
+
+### Main Canvas
+
+- Displays selected image at full resolution
+- Loading overlay during generation
+- "Dreaming..." text with spinner
+
+### Tab Switcher
+
+Switch between views:
+
+```
+┌──────────────┬──────────────┐
+│   Creation   │    Gallery   │
+└──────────────┴──────────────┘
+```
+
+- **Creation**: Active generation workspace
+- **Gallery**: Browse all past generations
+
+### History Strip
+
+Horizontal thumbnail strip at bottom:
+
+- Shows recent generations
+- Click thumbnail to load in canvas
+- Scrollable for more history
+- Most recent on left
+
+## Keyboard Shortcuts
+
+<Note>
+  Planned for future release
+</Note>
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl/Cmd + Enter` | Generate |
+| `Ctrl/Cmd + S` | Save/Download |
+| `Escape` | Cancel/Close |
+
+## States & Feedback
+
+### Generation States
+
+| State | Visual |
+|-------|--------|
+| **Idle** | Ready to generate |
+| **Loading** | Spinner overlay, "Dreaming..." |
+| **Complete** | Image displayed |
+| **Error** | Error message shown |
+
+### Button States
+
+| State | Appearance |
+|-------|------------|
+| **Default** | Purple gradient |
+| **Hover** | Brighter glow |
+| **Active** | Pressed state |
+| **Disabled** | Muted, no interaction |
+| **Loading** | Spinner, "Generating..." |
+
+## Responsive Behavior
+
+The dashboard adapts to window size:
+
+- **Full width**: 3-column layout
+- **Narrow**: Control panel may stack
+- **Minimum**: ~1200px recommended
+
+<Warning>
+  For best experience, use a screen width of 1400px or greater.
+</Warning>
+
+## Dark Theme
+
+The dashboard uses a dark theme by default:
+
+| Element | Color |
+|---------|-------|
+| Background | `#09090b` |
+| Sidebar | `#0c0c0e` |
+| Panel | `rgba(20, 20, 22, 0.7)` |
+| Input | `rgba(39, 39, 42, 0.5)` |
+| Text | `#FAFAFA` |
+| Accent | `#8b5cf6` |
+
+## Quick Reference
+
+<CardGroup cols={2}>
+  <Card title="Select Model" icon="list">
+    Click dropdown → Choose model
+  </Card>
+  <Card title="Enter Prompt" icon="keyboard">
+    Type in textarea → Be descriptive
+  </Card>
+  <Card title="Add Style" icon="palette">
+    Click style card → One active at a time
+  </Card>
+  <Card title="Generate" icon="play">
+    Click purple button → Wait for result
+  </Card>
+</CardGroup>

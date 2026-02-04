@@ -1,0 +1,208 @@
+---
+title: API Introduction
+description: "Overview of the AI Image Generator API powered by Convex"
+---
+
+# API Reference
+
+AI Image Generator uses [Convex](https://convex.dev) as its backend, providing real-time data synchronization and serverless functions.
+
+## Architecture
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   Client    │────▶│   Convex    │────▶│   FAL API   │
+│  (Next.js)  │◀────│  (Backend)  │◀────│  (AI Model) │
+└─────────────┘     └─────────────┘     └─────────────┘
+```
+
+### Data Flow
+
+1. **Client** sends generation request via Convex mutation
+2. **Convex** creates pending record and triggers action
+3. **Action** calls FAL API with enhanced prompt
+4. **FAL** generates images and returns URLs
+5. **Convex** downloads images to storage and updates record
+6. **Client** receives real-time update via subscription
+
+## Convex Concepts
+
+### Mutations
+
+Mutations modify data in the database:
+
+```typescript
+// Create a new generation
+const generationId = await ctx.runMutation(api.generations.create, {
+  prompt: "A beautiful sunset",
+  style: "photo",
+  aspectRatio: "16:9",
+  model: "flux-pro",
+  variantCount: 4,
+  sessionId: "user-session-id"
+});
+```
+
+### Queries
+
+Queries read data and automatically re-run when data changes:
+
+```typescript
+// Get all generations for a session
+const generations = useQuery(api.generations.list, {
+  sessionId: "user-session-id"
+});
+```
+
+### Actions
+
+Actions run serverless functions that can call external APIs:
+
+```typescript
+// Internal action to process generation
+await ctx.runAction(internal.generations.process, {
+  generationId: id
+});
+```
+
+## Authentication
+
+<Note>
+  Currently, the API uses session-based identification without authentication. User accounts are planned for a future release.
+</Note>
+
+### Session ID
+
+Each client generates a unique session ID stored in localStorage:
+
+```typescript
+// Client-side session management
+let sessionId = localStorage.getItem("sessionId");
+if (!sessionId) {
+  sessionId = crypto.randomUUID();
+  localStorage.setItem("sessionId", sessionId);
+}
+```
+
+All API calls include the `sessionId` to scope data to the user.
+
+## Rate Limits
+
+| Resource | Limit |
+|----------|-------|
+| Generations per minute | 10 |
+| Concurrent generations | 3 |
+| Max prompt length | 2000 characters |
+| Max variants per request | 4 |
+
+## Error Handling
+
+API errors follow this structure:
+
+```typescript
+{
+  code: "GENERATION_FAILED",
+  message: "Failed to generate image",
+  details: {
+    reason: "Model timeout",
+    generationId: "abc123"
+  }
+}
+```
+
+### Common Error Codes
+
+| Code | Description |
+|------|-------------|
+| `INVALID_PROMPT` | Prompt is empty or too long |
+| `INVALID_MODEL` | Unknown model specified |
+| `GENERATION_FAILED` | FAL API returned error |
+| `RATE_LIMITED` | Too many requests |
+| `SESSION_REQUIRED` | Missing sessionId |
+
+## Response Format
+
+### Success Response
+
+```typescript
+{
+  success: true,
+  data: {
+    id: "generation_abc123",
+    status: "complete",
+    images: [...]
+  }
+}
+```
+
+### Error Response
+
+```typescript
+{
+  success: false,
+  error: {
+    code: "GENERATION_FAILED",
+    message: "Failed to generate image"
+  }
+}
+```
+
+## SDK Usage
+
+### React Hooks
+
+```typescript
+import { useQuery, useMutation } from "convex/react";
+import { api } from "../convex/_generated/api";
+
+function GenerationPanel() {
+  // Subscribe to generations (auto-updates)
+  const generations = useQuery(api.generations.list, {
+    sessionId
+  });
+
+  // Create mutation function
+  const createGeneration = useMutation(api.generations.create);
+
+  const handleGenerate = async () => {
+    const id = await createGeneration({
+      prompt: "A mountain landscape",
+      style: "photo",
+      aspectRatio: "16:9",
+      model: "flux-pro",
+      variantCount: 2,
+      sessionId
+    });
+  };
+}
+```
+
+### Direct Function Calls
+
+```typescript
+import { ConvexHttpClient } from "convex/browser";
+
+const client = new ConvexHttpClient(process.env.CONVEX_URL);
+
+// Query data
+const generations = await client.query(api.generations.list, {
+  sessionId: "abc123"
+});
+
+// Run mutation
+const id = await client.mutation(api.generations.create, {
+  prompt: "...",
+  // ...other params
+});
+```
+
+## Endpoints Overview
+
+| Endpoint | Type | Description |
+|----------|------|-------------|
+| `generations.create` | Mutation | Create new generation |
+| `generations.list` | Query | List session generations |
+| `generations.get` | Query | Get single generation |
+| `generations.delete` | Mutation | Delete generation |
+
+See the [Generations API](/api-reference/generations) for detailed documentation.

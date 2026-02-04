@@ -1,0 +1,277 @@
+---
+title: Video Generation
+description: "Create AI-powered video content from text, images, or clips"
+---
+
+# Video Generation
+
+Generate dynamic video content using cutting-edge AI models.
+
+<Info>
+  Video generation is available on the desktop dashboard via the Video tab.
+</Info>
+
+## Getting Started
+
+Access video generation from the sidebar navigation by clicking the **video icon**, or navigate directly to the video dashboard.
+
+## Input Modes
+
+<Tabs>
+  <Tab title="Text to Video">
+    Generate video from a text description:
+
+    ```
+    A serene forest scene with sunlight filtering through leaves,
+    gentle wind causing branches to sway, birds flying in the distance
+    ```
+
+    **Best for**: Creating new scenes, abstract concepts
+  </Tab>
+  <Tab title="Image to Video">
+    Animate a static image:
+
+    1. Upload a reference image
+    2. Describe the motion you want
+    3. Generate the animation
+
+    **Best for**: Bringing photos to life, creating cinemagraphs
+  </Tab>
+  <Tab title="Element Mode">
+    Animate specific elements within a scene:
+
+    - Select regions to animate
+    - Define motion for each element
+    - Keep backgrounds static
+
+    **Best for**: Subtle animations, product showcases
+  </Tab>
+  <Tab title="Video to Video">
+    Transform existing video footage:
+
+    - Upload source video
+    - Apply style transformation
+    - Generate new version
+
+    **Best for**: Style transfer, video enhancement
+  </Tab>
+</Tabs>
+
+## Video Models
+
+### Sora 2
+
+<Note>
+  Most advanced model for cinematic quality
+</Note>
+
+| Spec | Value |
+|------|-------|
+| Duration | 4-8 seconds |
+| Resolution | Up to 4K |
+| Style | Cinematic, realistic |
+| Speed | ~30-60 seconds |
+
+**Strengths**: Complex scenes, realistic motion, high detail
+
+### Veo 3
+
+| Spec | Value |
+|------|-------|
+| Duration | 4-6 seconds |
+| Resolution | Up to 1080p |
+| Style | Realistic |
+| Speed | ~20-40 seconds |
+
+**Strengths**: Consistent motion, good prompt adherence
+
+### Wan
+
+| Spec | Value |
+|------|-------|
+| Duration | 4-8 seconds |
+| Resolution | Up to 1080p |
+| Style | Stylized |
+| Speed | ~25-45 seconds |
+
+**Strengths**: Artistic effects, creative transformations
+
+### SeeDance
+
+| Spec | Value |
+|------|-------|
+| Duration | 4-6 seconds |
+| Resolution | Up to 720p |
+| Style | Motion-focused |
+| Speed | ~15-30 seconds |
+
+**Strengths**: Character motion, dance sequences, fast generation
+
+## Video Settings
+
+### Resolution
+
+| Option | Use Case |
+|--------|----------|
+| **720p** | Quick previews, social media stories |
+| **1080p** | Standard quality, most platforms |
+| **4K** | High quality, professional use (Sora 2 only) |
+
+### Aspect Ratio
+
+| Ratio | Format |
+|-------|--------|
+| **16:9** | Landscape, YouTube, presentations |
+| **9:16** | Vertical, TikTok, Instagram Reels |
+
+### Duration
+
+| Length | Best For |
+|--------|----------|
+| **4 seconds** | Quick loops, GIF-style content |
+| **6 seconds** | Social media clips |
+| **8 seconds** | Longer narratives, transitions |
+
+### Video Mode
+
+| Mode | Description |
+|------|-------------|
+| **Fast** | Quicker generation, slightly lower quality |
+| **Normal** | Standard quality and speed |
+
+### Audio
+
+Toggle audio generation on/off:
+
+- **On**: AI generates accompanying sound effects
+- **Off**: Silent video output
+
+## Prompt Tips for Video
+
+### Describing Motion
+
+Be explicit about movement:
+
+```
+# Good
+"A bird takes off from a branch, wings spread wide,
+flying upward into a blue sky"
+
+# Better
+"A red cardinal perched on an oak branch slowly spreads its wings,
+then launches upward with powerful wing beats,
+ascending diagonally toward the upper right of frame"
+```
+
+### Camera Movement
+
+Specify camera behavior:
+
+| Term | Effect |
+|------|--------|
+| `static camera` | Fixed position |
+| `slow pan right` | Horizontal movement |
+| `tracking shot` | Follow the subject |
+| `zoom in` | Move closer |
+| `drone shot` | Aerial perspective |
+| `dolly forward` | Move into scene |
+
+### Temporal Terms
+
+Guide the timing:
+
+- "slowly", "gradually", "suddenly"
+- "begins to", "continues to", "ends with"
+- "loops seamlessly", "transitions to"
+
+## Example Prompts
+
+<AccordionGroup>
+  <Accordion title="Nature Scene">
+    ```
+    Slow aerial drone shot over a misty mountain valley at sunrise,
+    clouds rolling through the peaks, golden light illuminating
+    the fog, camera slowly descending toward a pristine lake,
+    cinematic quality, 4K detail
+    ```
+  </Accordion>
+  <Accordion title="Product Animation">
+    ```
+    A sleek smartphone rotates on a reflective black surface,
+    360 degree rotation, studio lighting with subtle reflections,
+    product showcase style, smooth continuous motion,
+    white background gradient
+    ```
+  </Accordion>
+  <Accordion title="Character Animation">
+    ```
+    Anime character with flowing hair walks forward confidently,
+    cape billowing in the wind, determined expression,
+    front view tracking shot, vibrant colors,
+    studio ghibli style animation
+    ```
+  </Accordion>
+  <Accordion title="Abstract Motion">
+    ```
+    Colorful liquid paint swirls and mixes in slow motion,
+    blue and gold colors intertwining, macro photography style,
+    satisfying fluid dynamics, looping seamlessly
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## History & Playback
+
+### Viewing Results
+
+- Generated videos appear in the canvas area
+- Play button overlay for playback control
+- Duration badge shows video length
+
+### History Strip
+
+- Thumbnails of recent generations
+- Click to load into main viewer
+- Scrollable for more history
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Start Short" icon="clock">
+    Begin with 4-second videos to iterate quickly before committing to longer durations
+  </Card>
+  <Card title="Simple Motion First" icon="arrows-alt">
+    Master simple camera moves before complex multi-element animations
+  </Card>
+  <Card title="Reference Images" icon="image">
+    Use Image-to-Video mode for more control over the visual style
+  </Card>
+  <Card title="Iterate Prompts" icon="rotate">
+    Refine prompts based on results, adding specificity where needed
+  </Card>
+</CardGroup>
+
+## Troubleshooting
+
+### Common Issues
+
+<Warning>
+  **Video appears choppy**
+  - Try Normal mode instead of Fast
+  - Use a higher resolution
+  - Simplify the motion in your prompt
+</Warning>
+
+<Warning>
+  **Motion doesn't match prompt**
+  - Be more explicit about timing and direction
+  - Use temporal terms (slowly, suddenly, etc.)
+  - Try a different model
+</Warning>
+
+<Warning>
+  **Generation takes too long**
+  - Reduce resolution to 720p
+  - Shorten duration to 4 seconds
+  - Use Fast mode
+</Warning>

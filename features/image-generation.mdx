@@ -1,0 +1,287 @@
+---
+title: Image Generation
+description: "Create stunning AI-generated images from text prompts"
+---
+
+# Image Generation
+
+Transform your ideas into visual reality with our powerful image generation system.
+
+## How It Works
+
+<Steps>
+  <Step title="Enter Your Prompt">
+    Describe the image you want to create in natural language
+  </Step>
+  <Step title="Configure Settings">
+    Choose model, style, aspect ratio, and variant count
+  </Step>
+  <Step title="Generate">
+    Click generate and watch your image come to life
+  </Step>
+  <Step title="Refine">
+    Iterate on results or generate variants
+  </Step>
+</Steps>
+
+## Prompt Engineering
+
+### Basic Structure
+
+A good prompt typically includes:
+
+```
+[Subject] + [Setting/Context] + [Style] + [Lighting] + [Mood]
+```
+
+### Example Prompts
+
+<AccordionGroup>
+  <Accordion title="Portrait Photography">
+    ```
+    Professional headshot of a confident businesswoman,
+    neutral gray background, soft studio lighting,
+    sharp focus on eyes, shallow depth of field,
+    Canon 85mm lens look
+    ```
+  </Accordion>
+  <Accordion title="Fantasy Landscape">
+    ```
+    Floating islands in a purple sky, waterfalls cascading
+    into clouds below, ancient temples with glowing crystals,
+    magical atmosphere, golden hour lighting,
+    detailed matte painting style
+    ```
+  </Accordion>
+  <Accordion title="Product Shot">
+    ```
+    Sleek wireless earbuds on a marble surface,
+    dramatic side lighting creating long shadows,
+    minimalist composition, high-end advertising photography,
+    8K detail
+    ```
+  </Accordion>
+  <Accordion title="Anime Character">
+    ```
+    Young adventurer with silver hair and blue eyes,
+    wearing a flowing cape, standing on a cliff edge,
+    wind blowing, anime style, vibrant colors,
+    studio ghibli inspired
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Prompt Modifiers
+
+Enhance your prompts with these modifiers:
+
+| Category | Examples |
+|----------|----------|
+| **Quality** | 8K, highly detailed, sharp focus, masterpiece |
+| **Lighting** | golden hour, dramatic lighting, soft diffused, neon glow |
+| **Camera** | wide angle, macro, telephoto, fisheye, tilt-shift |
+| **Style** | photorealistic, oil painting, watercolor, digital art |
+| **Mood** | serene, dramatic, mysterious, cheerful, melancholic |
+
+## Model Selection
+
+### Flux 1.0 Ultra (Recommended)
+
+<Info>
+  Best overall quality and prompt adherence
+</Info>
+
+- **Speed**: ~10 seconds
+- **Quality**: Excellent photorealism
+- **Strengths**: Complex scenes, accurate text, fine details
+- **Use for**: Production images, marketing materials
+
+### Flux Dev
+
+- **Speed**: ~8 seconds
+- **Quality**: Very good
+- **Strengths**: Balanced performance, good iteration speed
+- **Use for**: Development, testing concepts
+
+### Flux Schnell
+
+- **Speed**: ~2 seconds
+- **Quality**: Good
+- **Strengths**: Rapid iteration, quick previews
+- **Use for**: Exploring ideas, rough drafts
+
+### Midjourney V6
+
+- **Speed**: ~15 seconds
+- **Quality**: Excellent artistic quality
+- **Strengths**: Aesthetic compositions, artistic flair
+- **Use for**: Creative projects, artistic work
+
+### DALL-E 3 Max
+
+- **Speed**: ~12 seconds
+- **Quality**: Excellent
+- **Strengths**: Versatile, handles complex instructions
+- **Use for**: Varied use cases, instruction-heavy prompts
+
+## Style Presets
+
+### How Styles Work
+
+Style presets prepend descriptive keywords to your prompt:
+
+```javascript
+// Your prompt
+"a cat sitting on a windowsill"
+
+// With "Anime" style applied
+"anime style, vibrant colors, cel shaded, a cat sitting on a windowsill"
+```
+
+### Available Styles
+
+<CardGroup cols={2}>
+  <Card title="Realistic">
+    Photorealistic rendering with natural lighting and textures. Best for lifelike images.
+  </Card>
+  <Card title="Anime">
+    Japanese animation aesthetic with vibrant colors and cel shading.
+  </Card>
+  <Card title="3D Render">
+    CGI quality with Octane-style rendering. Great for product and abstract.
+  </Card>
+  <Card title="Oil Painting">
+    Traditional oil painting style with visible brushstrokes and rich colors.
+  </Card>
+</CardGroup>
+
+## Aspect Ratios
+
+Choose based on your intended use:
+
+### Landscape Formats
+
+| Ratio | Size | Best For |
+|-------|------|----------|
+| 16:9 | 1344 x 768 | Desktop wallpapers, presentations, YouTube thumbnails |
+| 3:2 | 1216 x 832 | Standard photo prints, website banners |
+| 4:3 | 1152 x 896 | Traditional photography, slide decks |
+
+### Portrait Formats
+
+| Ratio | Size | Best For |
+|-------|------|----------|
+| 9:16 | 768 x 1344 | Mobile wallpapers, Instagram stories, TikTok |
+| 2:3 | 832 x 1216 | Portrait prints, book covers |
+| 3:4 | 896 x 1152 | Portrait photography, social posts |
+
+### Square Format
+
+| Ratio | Size | Best For |
+|-------|------|----------|
+| 1:1 | 1024 x 1024 | Instagram posts, profile pictures, icons |
+
+## Variant Generation
+
+Generate multiple versions to find the perfect result:
+
+<Tabs>
+  <Tab title="1 Variant">
+    - Fastest generation
+    - Single focused result
+    - Best when you're confident in your prompt
+  </Tab>
+  <Tab title="2 Variants">
+    - Quick comparison
+    - Good for A/B testing compositions
+    - Moderate time investment
+  </Tab>
+  <Tab title="3 Variants">
+    - Good variety
+    - Higher chance of finding ideal result
+    - Recommended for most use cases
+  </Tab>
+  <Tab title="4 Variants">
+    - Maximum options
+    - Best for exploratory prompts
+    - Takes longest but most choice
+  </Tab>
+</Tabs>
+
+## Reference Images
+
+Attach images to guide generation:
+
+### How to Use
+
+1. Click the **attachment icon** in the prompt area
+2. Select an image from your device
+3. Add a prompt describing how to use the reference
+
+### Reference Types
+
+<AccordionGroup>
+  <Accordion title="Style Reference">
+    Use an image to match its artistic style:
+    ```
+    "Create a portrait in the same artistic style as the reference image"
+    ```
+  </Accordion>
+  <Accordion title="Composition Reference">
+    Match the layout and composition:
+    ```
+    "Use the same composition and framing as the reference"
+    ```
+  </Accordion>
+  <Accordion title="Subject Reference">
+    Generate variations of a subject:
+    ```
+    "Create variations of this character in different poses"
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Generation Status
+
+### Status Indicators
+
+| Status | Description |
+|--------|-------------|
+| **Pending** | Request queued, waiting to process |
+| **Processing** | AI model is generating your image |
+| **Complete** | Generation finished, view results |
+| **Failed** | Error occurred, check message |
+
+### Loading States
+
+During generation you'll see:
+
+- Loading overlay with "Dreaming..." message
+- Spinner animation
+- Optional blur effect on canvas
+
+## Troubleshooting
+
+<Warning>
+  Common issues and solutions
+</Warning>
+
+### Generation Failed
+
+- Check your internet connection
+- Try a simpler prompt
+- Select a different model
+- Retry the generation
+
+### Unexpected Results
+
+- Be more specific in your prompt
+- Add quality modifiers (8K, detailed, sharp)
+- Try a different style preset
+- Adjust the aspect ratio
+
+### Slow Generation
+
+- Use Flux Schnell for faster results
+- Reduce variant count
+- Check your connection speed

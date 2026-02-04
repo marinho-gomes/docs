@@ -1,0 +1,360 @@
+---
+title: Generations API
+description: "Create and manage AI image generations"
+---
+
+# Generations API
+
+The Generations API handles all image generation operations.
+
+## Data Model
+
+```typescript
+interface Generation {
+  _id: Id<"generations">;
+  prompt: string;
+  style: "photo" | "anime" | "illustration" | "3d" | "comic";
+  aspectRatio: "1:1" | "16:9" | "9:16" | "4:3" | "3:4" | "3:2" | "2:3";
+  model: "flux-pro" | "flux-dev" | "flux-schnell";
+  variantCount: number;
+  status: "pending" | "processing" | "complete" | "failed";
+  images: Array<{
+    storageId: Id<"_storage">;
+    url: string;
+    width: number;
+    height: number;
+  }>;
+  error?: string;
+  createdAt: number;
+  completedAt?: number;
+  sessionId: string;
+}
+```
+
+## Create Generation
+
+Create a new image generation request.
+
+<ParamField path="prompt" type="string" required>
+  The text description of the image to generate. Max 2000 characters.
+</ParamField>
+
+<ParamField path="style" type="string" required>
+  Visual style preset. One of: `photo`, `anime`, `illustration`, `3d`, `comic`
+</ParamField>
+
+<ParamField path="aspectRatio" type="string" required>
+  Output dimensions. One of: `1:1`, `16:9`, `9:16`, `4:3`, `3:4`, `3:2`, `2:3`
+</ParamField>
+
+<ParamField path="model" type="string" required>
+  AI model to use. One of: `flux-pro`, `flux-dev`, `flux-schnell`
+</ParamField>
+
+<ParamField path="variantCount" type="number" required>
+  Number of image variants (1-4)
+</ParamField>
+
+<ParamField path="sessionId" type="string" required>
+  Unique session identifier for the user
+</ParamField>
+
+### Request
+
+```typescript
+import { useMutation } from "convex/react";
+import { api } from "../convex/_generated/api";
+
+const createGeneration = useMutation(api.generations.create);
+
+const generationId = await createGeneration({
+  prompt: "A serene mountain landscape at sunset with a crystal lake",
+  style: "photo",
+  aspectRatio: "16:9",
+  model: "flux-pro",
+  variantCount: 4,
+  sessionId: "user-abc123"
+});
+```
+
+### Response
+
+```typescript
+// Returns the generation ID
+"k97d8cvqw3x2j4m5n6p7q8r9"
+```
+
+### Behavior
+
+1. Creates generation record with `status: "pending"`
+2. Schedules internal action to process generation
+3. Returns immediately with generation ID
+4. Client subscribes to updates via query
+
+---
+
+## List Generations
+
+Retrieve all generations for a session.
+
+<ParamField path="sessionId" type="string" required>
+  Session identifier to filter by
+</ParamField>
+
+### Request
+
+```typescript
+import { useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
+
+const generations = useQuery(api.generations.list, {
+  sessionId: "user-abc123"
+});
+```
+
+### Response
+
+```typescript
+[
+  {
+    _id: "k97d8cvqw3x2j4m5n6p7q8r9",
+    prompt: "A serene mountain landscape...",
+    style: "photo",
+    aspectRatio: "16:9",
+    model: "flux-pro",
+    variantCount: 4,
+    status: "complete",
+    images: [
+      {
+        storageId: "kg8d7cvqw3x2...",
+        url: "https://convex.cloud/api/storage/...",
+        width: 1344,
+        height: 768
+      },
+      // ... more images
+    ],
+    createdAt: 1706745600000,
+    completedAt: 1706745612000,
+    sessionId: "user-abc123"
+  },
+  // ... more generations
+]
+```
+
+### Sorting
+
+Results are returned in reverse chronological order (newest first).
+
+---
+
+## Get Generation
+
+Retrieve a single generation by ID.
+
+<ParamField path="id" type="Id<'generations'>" required>
+  The generation ID
+</ParamField>
+
+### Request
+
+```typescript
+import { useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
+
+const generation = useQuery(api.generations.get, {
+  id: "k97d8cvqw3x2j4m5n6p7q8r9"
+});
+```
+
+### Response
+
+```typescript
+{
+  _id: "k97d8cvqw3x2j4m5n6p7q8r9",
+  prompt: "A serene mountain landscape...",
+  style: "photo",
+  aspectRatio: "16:9",
+  model: "flux-pro",
+  variantCount: 4,
+  status: "complete",
+  images: [...],
+  createdAt: 1706745600000,
+  completedAt: 1706745612000,
+  sessionId: "user-abc123"
+}
+```
+
+---
+
+## Delete Generation
+
+Remove a generation and its associated images.
+
+<ParamField path="id" type="Id<'generations'>" required>
+  The generation ID to delete
+</ParamField>
+
+### Request
+
+```typescript
+import { useMutation } from "convex/react";
+import { api } from "../convex/_generated/api";
+
+const deleteGeneration = useMutation(api.generations.delete);
+
+await deleteGeneration({
+  id: "k97d8cvqw3x2j4m5n6p7q8r9"
+});
+```
+
+### Response
+
+```typescript
+// Returns null on success
+null
+```
+
+### Behavior
+
+1. Deletes all stored images from Convex storage
+2. Removes the generation record
+3. Operation is permanent and cannot be undone
+
+---
+
+## Status Values
+
+| Status | Description |
+|--------|-------------|
+| `pending` | Request received, queued for processing |
+| `processing` | AI model is generating images |
+| `complete` | Generation finished successfully |
+| `failed` | Error occurred during generation |
+
+### Status Flow
+
+```
+pending → processing → complete
+                    ↘ failed
+```
+
+---
+
+## Style Prompts
+
+Styles are implemented by enhancing the user prompt:
+
+| Style | Prompt Enhancement |
+|-------|-------------------|
+| `photo` | `photorealistic, high quality photograph, natural lighting` |
+| `anime` | `anime style, vibrant colors, cel shaded` |
+| `illustration` | `digital illustration, detailed artwork` |
+| `3d` | `3D render, octane render, high detail` |
+| `comic` | `comic book style, bold lines, halftone dots` |
+
+### Example
+
+```
+User prompt: "a cat on a windowsill"
+Style: anime
+
+Enhanced prompt: "anime style, vibrant colors, cel shaded, a cat on a windowsill"
+```
+
+---
+
+## Aspect Ratio Dimensions
+
+| Ratio | Width | Height |
+|-------|-------|--------|
+| `1:1` | 1024 | 1024 |
+| `16:9` | 1344 | 768 |
+| `9:16` | 768 | 1344 |
+| `4:3` | 1152 | 896 |
+| `3:4` | 896 | 1152 |
+| `3:2` | 1216 | 832 |
+| `2:3` | 832 | 1216 |
+
+---
+
+## Model Specifications
+
+| Model | ID | Speed | Quality |
+|-------|-----|-------|---------|
+| Flux 1.0 Ultra | `flux-pro` | ~10s | Excellent |
+| Flux Dev | `flux-dev` | ~8s | Very Good |
+| Flux Schnell | `flux-schnell` | ~2s | Good |
+
+---
+
+## Real-time Updates
+
+Use Convex queries to subscribe to generation status changes:
+
+```typescript
+function GenerationStatus({ generationId }) {
+  const generation = useQuery(api.generations.get, { id: generationId });
+
+  if (!generation) return <Loading />;
+
+  switch (generation.status) {
+    case "pending":
+      return <div>Queued...</div>;
+    case "processing":
+      return <div>Generating...</div>;
+    case "complete":
+      return <ImageGrid images={generation.images} />;
+    case "failed":
+      return <Error message={generation.error} />;
+  }
+}
+```
+
+The query automatically re-runs when the generation record changes, providing real-time status updates without polling.
+
+---
+
+## Error Handling
+
+### Failed Generations
+
+When a generation fails, the record includes an error message:
+
+```typescript
+{
+  status: "failed",
+  error: "Model timeout: generation took longer than 60 seconds"
+}
+```
+
+### Common Errors
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| Model timeout | AI model took too long | Retry or use faster model |
+| Invalid prompt | Content policy violation | Modify prompt content |
+| Rate limited | Too many requests | Wait and retry |
+| Storage error | Failed to save images | Automatic retry |
+
+### Retry Logic
+
+```typescript
+async function generateWithRetry(params, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    const id = await createGeneration(params);
+
+    // Wait for completion
+    const result = await waitForGeneration(id);
+
+    if (result.status === "complete") {
+      return result;
+    }
+
+    if (i < maxRetries - 1) {
+      await delay(1000 * (i + 1)); // Exponential backoff
+    }
+  }
+
+  throw new Error("Generation failed after retries");
+}
+```

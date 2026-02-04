@@ -1,0 +1,261 @@
+---
+title: Color System
+description: "Dark theme color palette and usage guidelines"
+---
+
+# Color System
+
+AI Image Generator uses a sophisticated dark theme with purple accent gradients.
+
+## Color Philosophy
+
+The color system is designed to:
+
+- **Reduce eye strain** during extended creative sessions
+- **Highlight content** by keeping UI elements subdued
+- **Create focus** on generated images
+- **Convey premium quality** through careful color choices
+
+## Background Colors
+
+### Primary Backgrounds
+
+| Token | Hex | Usage |
+|-------|-----|-------|
+| `--color-bg-main` | `#09090b` | Main app background |
+| `--color-bg-sidebar` | `#0c0c0e` | Navigation sidebar |
+| `--color-bg-panel` | `rgba(20, 20, 22, 0.7)` | Control panel with blur |
+| `--color-bg-input` | `rgba(39, 39, 42, 0.5)` | Input fields |
+
+### Surface Colors
+
+```css
+/* Card backgrounds */
+--color-bg-card: rgba(255, 255, 255, 0.05);
+
+/* Elevated surfaces */
+--color-bg-elevated: #18181b;
+
+/* Hover states */
+--color-bg-hover: rgba(255, 255, 255, 0.08);
+```
+
+## Text Colors
+
+| Token | Hex | Usage |
+|-------|-----|-------|
+| `--color-text-primary` | `#FAFAFA` | Headings, important text |
+| `--color-text-secondary` | `#A1A1AA` | Body text, descriptions |
+| `--color-text-tertiary` | `#52525B` | Disabled, hints |
+| `--color-text-muted` | `#71717A` | Subtle labels |
+
+### Text Hierarchy Example
+
+```
+Primary (#FAFAFA)    → Page titles, buttons
+Secondary (#A1A1AA)  → Body copy, labels
+Tertiary (#52525B)   → Placeholders, disabled
+```
+
+## Accent Colors
+
+### Primary Purple
+
+The signature purple gradient:
+
+```css
+--gradient-button: linear-gradient(92deg, #8b5cf6 0%, #6366f1 100%);
+```
+
+| Shade | Hex | Usage |
+|-------|-----|-------|
+| Light | `#a78bfa` | Highlights, hover states |
+| Primary | `#8b5cf6` | Buttons, active states |
+| Dark | `#6366f1` | Gradient end, shadows |
+
+### Glow Effects
+
+```css
+/* Button glow */
+box-shadow: 0px 0px 20px rgba(139, 92, 246, 0.5);
+
+/* Focused input */
+border-color: #8b5cf6;
+box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+```
+
+## Border Colors
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--color-border-default` | `rgba(255, 255, 255, 0.08)` | Default borders |
+| `--color-border-hover` | `rgba(255, 255, 255, 0.12)` | Hover state |
+| `--color-border-active` | `#8b5cf6` | Active/focused |
+
+## Status Colors
+
+### Semantic Colors
+
+| Status | Hex | Usage |
+|--------|-----|-------|
+| Success | `#22c55e` | Completed actions |
+| Warning | `#f59e0b` | Cautions, pending |
+| Error | `#ef4444` | Errors, failures |
+| Info | `#3b82f6` | Informational |
+
+### Status Badges
+
+```css
+/* Success badge */
+background: rgba(34, 197, 94, 0.1);
+color: #22c55e;
+border: 1px solid rgba(34, 197, 94, 0.2);
+
+/* Error badge */
+background: rgba(239, 68, 68, 0.1);
+color: #ef4444;
+border: 1px solid rgba(239, 68, 68, 0.2);
+```
+
+## Glass Morphism
+
+Used for cards and panels:
+
+```css
+.glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+```
+
+## Color Usage Examples
+
+### Buttons
+
+<Tabs>
+  <Tab title="Primary">
+    ```css
+    .btn-primary {
+      background: linear-gradient(92deg, #8b5cf6 0%, #6366f1 100%);
+      color: #FFFFFF;
+      box-shadow: 0px 0px 20px rgba(139, 92, 246, 0.5);
+    }
+    ```
+  </Tab>
+  <Tab title="Secondary">
+    ```css
+    .btn-secondary {
+      background: transparent;
+      color: #A1A1AA;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    ```
+  </Tab>
+  <Tab title="Ghost">
+    ```css
+    .btn-ghost {
+      background: transparent;
+      color: #FAFAFA;
+    }
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+    ```
+  </Tab>
+</Tabs>
+
+### Input Fields
+
+```css
+.input {
+  background: rgba(39, 39, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #FAFAFA;
+}
+
+.input::placeholder {
+  color: #52525B;
+}
+
+.input:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+```
+
+### Cards
+
+```css
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+}
+```
+
+## CSS Custom Properties
+
+Full list of color variables:
+
+```css
+:root {
+  /* Backgrounds */
+  --color-bg-main: #09090b;
+  --color-bg-sidebar: #0c0c0e;
+  --color-bg-panel: rgba(20, 20, 22, 0.7);
+  --color-bg-input: rgba(39, 39, 42, 0.5);
+  --color-bg-card: rgba(255, 255, 255, 0.05);
+  --color-bg-hover: rgba(255, 255, 255, 0.08);
+
+  /* Text */
+  --color-text-primary: #FAFAFA;
+  --color-text-secondary: #A1A1AA;
+  --color-text-tertiary: #52525B;
+  --color-text-muted: #71717A;
+
+  /* Accents */
+  --color-accent-light: #a78bfa;
+  --color-accent: #8b5cf6;
+  --color-accent-dark: #6366f1;
+
+  /* Borders */
+  --color-border-default: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.12);
+  --color-border-active: #8b5cf6;
+
+  /* Gradients */
+  --gradient-button: linear-gradient(92deg, #8b5cf6 0%, #6366f1 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+}
+```
+
+## Accessibility
+
+### Contrast Ratios
+
+| Combination | Ratio | WCAG |
+|-------------|-------|------|
+| Primary text on main bg | 15.8:1 | AAA |
+| Secondary text on main bg | 7.2:1 | AAA |
+| Tertiary text on main bg | 3.8:1 | AA (large) |
+
+### Focus States
+
+All interactive elements have visible focus states:
+
+```css
+:focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+```

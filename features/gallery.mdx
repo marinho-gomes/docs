@@ -1,0 +1,228 @@
+---
+title: Gallery & History
+description: "Browse, organize, and manage your generated content"
+---
+
+# Gallery & History
+
+All your generations are automatically saved and organized for easy access.
+
+## Accessing the Gallery
+
+<Tabs>
+  <Tab title="From Dashboard">
+    Click the **Gallery** tab in the canvas area to switch from Creation view to Gallery view.
+  </Tab>
+  <Tab title="Direct Access">
+    Navigate directly to `/gallery.html` for the full gallery experience.
+  </Tab>
+</Tabs>
+
+## Gallery Organization
+
+### Date Groups
+
+Generations are organized by date:
+
+- **Today** - All generations from today
+- **Yesterday** - Yesterday's creations
+- **This Week** - Older items from current week
+- **Previous** - Older generations
+
+### Generation Sets
+
+Each generation appears as a set showing:
+
+- **Thumbnail Grid** - 2x2 or single image preview
+- **Prompt Text** - The original prompt used
+- **Metadata Tags** - Model, aspect ratio, settings used
+- **Actions** - Favorite, options menu
+
+## Filtering
+
+### Filter Options
+
+Use the filter chips to narrow your view:
+
+| Filter | Shows |
+|--------|-------|
+| **All** | All generations |
+| **Favorites** | Items you've hearted |
+| **Upscales** | Upscaled images |
+
+### Search
+
+<Info>
+  Search functionality allows finding generations by prompt text.
+</Info>
+
+Type keywords to filter by prompt content.
+
+## Actions
+
+### Favorite
+
+Click the **heart icon** to mark a generation as favorite:
+
+- Favorited items appear first in the Favorites filter
+- Hearts persist across sessions
+- Use to bookmark your best work
+
+### View Full Size
+
+Click any generation to view it full size:
+
+- Opens in the canvas area
+- Full resolution display
+- Access to download and share
+
+### Download
+
+Download your generations:
+
+1. Click the generation to view full size
+2. Click the **download button** in the toolbar
+3. Image saves to your device
+
+<Note>
+  Downloads are full resolution regardless of display size.
+</Note>
+
+### Share
+
+Share your creations:
+
+1. Click the **share button** in the toolbar
+2. Copy the generated link
+3. Share via your preferred platform
+
+### More Options
+
+Click the **three-dot menu** for additional actions:
+
+- **Regenerate** - Create new versions with same settings
+- **Edit Prompt** - Modify and regenerate
+- **Delete** - Remove from history
+
+## Session History
+
+### How Sessions Work
+
+Your session is identified by a unique ID stored in your browser:
+
+```javascript
+// Session ID stored in localStorage
+localStorage.getItem("sessionId")
+```
+
+- Persists across browser sessions
+- Unique to each browser/device
+- All generations tied to this ID
+
+### History Strip
+
+In the dashboard, the history strip shows recent generations:
+
+- Horizontal scrollable thumbnails
+- Click to load into canvas
+- Most recent appears first
+
+### Viewing Details
+
+Each history item shows:
+
+| Element | Description |
+|---------|-------------|
+| Thumbnail | Preview of generated image(s) |
+| Variant count | Number of images in set |
+| Status badge | Complete, processing, or failed |
+
+## Data Management
+
+### Storage
+
+<Info>
+  All images are stored in Convex File Storage with automatic URL generation.
+</Info>
+
+Generation records include:
+
+```typescript
+{
+  prompt: string,
+  style: "photo" | "anime" | "illustration" | "3d" | "comic",
+  aspectRatio: "1:1" | "16:9" | "9:16" | "4:3" | "3:4",
+  model: "flux-pro" | "flux-dev" | "flux-schnell",
+  variantCount: number,
+  status: "pending" | "processing" | "complete" | "failed",
+  images: Array<{
+    storageId: string,
+    url: string,
+    width: number,
+    height: number
+  }>,
+  createdAt: number,
+  sessionId: string
+}
+```
+
+### Deleting Generations
+
+To remove a generation:
+
+1. Open the generation
+2. Click the options menu (three dots)
+3. Select **Delete**
+4. Confirm deletion
+
+<Warning>
+  Deletion is permanent and cannot be undone.
+</Warning>
+
+## Gallery View Layout
+
+### Desktop
+
+The gallery displays as a grid with:
+
+- Date section headers
+- 2-column or 3-column layouts
+- Hover states showing actions
+- Smooth scroll between sections
+
+### Embedded Mode
+
+When loaded in the dashboard iframe:
+
+- Optimized for sidebar display
+- Compact thumbnails
+- Quick access to recent items
+
+## Tips & Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Favorite Liberally" icon="heart">
+    Mark good results immediately so you can find them later
+  </Card>
+  <Card title="Use Filters" icon="filter">
+    The Favorites filter quickly surfaces your best work
+  </Card>
+  <Card title="Regular Downloads" icon="download">
+    Download images you want to keep long-term
+  </Card>
+  <Card title="Clear Old Items" icon="trash">
+    Delete failed or unwanted generations to keep gallery clean
+  </Card>
+</CardGroup>
+
+## Future Features
+
+<Info>
+  Coming in future updates:
+</Info>
+
+- **Collections** - Organize generations into custom folders
+- **Tags** - Add custom tags for better organization
+- **Bulk Actions** - Select multiple items for batch operations
+- **Export** - Download entire collections as ZIP
+- **Cloud Sync** - Sync history across devices with user accounts
